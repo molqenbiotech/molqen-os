@@ -281,7 +281,10 @@ export default function App() {
 
   // 3. Multi-collection Lab Workspace Synchronization ('labs' & 'organizations')
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+  setLoading(false);
+  return;
+}
 
     const unsubLabs = onSnapshot(collection(db, 'labs'), (snapshot) => {
       let loaded = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
