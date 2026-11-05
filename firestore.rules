@@ -1,0 +1,213 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // =========================================================================
+    // 1. PRIVATE PERSONAL SANDBOX ("My Personal Bench")
+    // Strictly isolated to the individual authenticated user.
+    // Contains unshared SOP drafts, custom protocols, and private notebook runs.
+    // No other student or teacher can read or modify these records.
+    // =========================================================================
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      // Private SOP drafts
+      match /sandbox_sops/{sopId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Private custom protocols & reaction formulations
+      match /sandbox_protocols/{protocolId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Private experimental notebook entries & runs
+      match /sandbox_experiments/{expId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Catch-all for any user-scoped subcollections
+      match /{allUserPaths=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // =========================================================================
+    // 2. SHARED LAB INVENTORY & ASSETS (Unrestricted for Lab Members)
+    // Core Requirement: Students MUST retain full ability to search, log, add,
+    // and adjust reagents, consumables, and chemical stocks.
+    // =========================================================================
+    match /reagents/{reagentId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /inventory/{itemId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /equipment_bookings/{bookingId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /lab_instruments/{instId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /instruments/{instId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /suppliers/{supplierId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /plates/{plateId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // =========================================================================
+    // 3. OFFICIAL LAB REPOSITORIES & PUBLISHED KNOWLEDGE BASE
+    // Records submitted/published by researchers from their personal bench
+    // into the shared lab core repository.
+    // =========================================================================
+    match /knowledge_base/{docId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated();
+    }
+
+    match /eln_entries/{docId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated();
+    }
+
+    match /lab_notebook/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /protocols/{protocolId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /publications/{pubId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Master Laboratory Calendar & Schedules
+    match /calendar_events/{eventId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Encrypted MOLQEN AI conversations
+    match /ai_conversations/{convId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Notifications & Alert Dispatcher
+    match /notifications/{notificationId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Autonomous AI Bench Digests
+    match /ai_bench_digests/{digestId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Immutable Terms Acceptance Audit Logs (GDPR Art. 7 Proof of Consent)
+    match /terms_acceptance_logs/{logId} {
+      allow create: if true; // Allowed during signup
+      allow read: if isAuthenticated();
+      allow update, delete: if false; // Append-only immutable log
+    }
+
+    // Data Subject Access Requests (DSAR)
+    match /dsar_requests/{requestId} {
+      allow create, read: if isAuthenticated();
+      allow update, delete: if false;
+    }
+
+    // =========================================================================
+    // 4. GRANTS & FINANCIAL LEDGER
+    // Grants tracking and expenditure logging.
+    // Visible to members; UI gates additions/deletions to Faculty / PI.
+    // =========================================================================
+    match /grants/{grantId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+
+    match /grant_expenses/{expenseId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+
+    // =========================================================================
+    // 5. LAB WORKSPACES, AUDIT TRAILS & SYSTEM LOGS
+    // =========================================================================
+    match /labs/{labId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+
+      // Nested lab subcollections if utilized
+      match /inventory/{reagentId} {
+        allow read, write: if isAuthenticated();
+      }
+      match /published_sops/{sopId} {
+        allow read, write: if isAuthenticated();
+      }
+      match /published_protocols/{protocolId} {
+        allow read, write: if isAuthenticated();
+      }
+      match /{allLabPaths=**} {
+        allow read, write: if isAuthenticated();
+      }
+    }
+
+    match /organizations/{orgId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /lab_members/{memberId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // Immutable GLP audit trail
+    match /audit_trail/{auditId} {
+      allow read, create: if isAuthenticated();
+      allow update, delete: if false;
+    }
+
+    // Immutable terms & privacy acceptance audit logs (GDPR Art. 7(1))
+    match /terms_acceptance_logs/{logId} {
+      allow create: if isAuthenticated();
+      allow read: if isAuthenticated() && (request.auth.uid == resource.data.userId);
+      allow update, delete: if false;
+    }
+
+    // DSAR & Right to Erasure statutory requests (GDPR Art. 17 / CCPA)
+    match /dsar_requests/{requestId} {
+      allow create: if isAuthenticated();
+      allow read: if isAuthenticated() && (request.auth.uid == resource.data.userId);
+      allow update, delete: if false;
+    }
+
+    match /lab_presence/{presenceId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /lab_memory/{memoryId} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}
+
