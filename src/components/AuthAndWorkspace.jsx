@@ -18,6 +18,58 @@ import {
 import { logTermsAcceptance } from '../utils/termsLog';
 import LegalCenter from './LegalCenter';
 
+// Enterprise Tech & Compliance Infrastructure Partners for Marquee
+const INFRA_CREDENTIALS = [
+  {
+    name: 'Google Cloud & Firebase',
+    role: 'Auth & Realtime Firestore',
+    icon: '🔥',
+    badge: 'Enterprise v11'
+  },
+  {
+    name: 'Cloudinary CDN',
+    role: 'Automated Raw Gel & Specimen CDN',
+    icon: '☁️',
+    badge: 'Encrypted Media'
+  },
+  {
+    name: 'Gemini 1.5 Pro / Flash',
+    role: 'Bench AI Protocol Engine',
+    icon: '⚡',
+    badge: '1M Context'
+  },
+  {
+    name: '21 CFR Part 11 & GLP',
+    role: 'Validated Signatures',
+    icon: '⚖️',
+    badge: 'FDA Validated'
+  },
+  {
+    name: 'AES-256-GCM Cryptographic Enclave',
+    role: 'Client-Side Bench Enclave',
+    icon: '🔒',
+    badge: 'E2E Cipher'
+  },
+  {
+    name: 'NCBI & RCSB PDB',
+    role: 'Direct REST / GraphQL Feeds',
+    icon: '🧬',
+    badge: 'Bioinformatics'
+  },
+  {
+    name: 'ISO/IEC 17025',
+    role: 'Testing & Calibration Compliance',
+    icon: '🛡️',
+    badge: 'Accredited'
+  },
+  {
+    name: 'Vite + React 18',
+    role: 'High-Performance Bench Runtime',
+    icon: '⚛️',
+    badge: 'Sub-10ms UI'
+  }
+];
+
 export default function AuthAndWorkspace({ user, onEnterLab, onAuthSuccess }) {
   // Auth Form State
   const [isSignUp, setIsSignUp] = useState(false);
@@ -189,385 +241,619 @@ export default function AuthAndWorkspace({ user, onEnterLab, onAuthSuccess }) {
   };
 
   // ============================================================================
-  // 1. DUAL-CANVAS MODERN LOGIN / SIGN UP EXPERIENCE
+  // 1. DUAL-CANVAS MODERN LOGIN / SIGN UP EXPERIENCE WITH INFRASTRUCTURE MARQUEE
   // ============================================================================
   if (!user) {
     return (
-      <div style={splitAuthContainer}>
-        {/* LEFT COLUMN: SCIENTIFIC MISSION DECK & BIOTECH SHOWCASE */}
-        <div style={showcasePanelStyle}>
-          <div style={showcaseContentStyle}>
-            {/* Top Brand Identity */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '28px' }}>
-              <div style={{
-                width: '42px',
-                height: '42px',
-                borderRadius: '12px',
-                background: 'linear-gradient(135deg, #10b981 0%, #2563eb 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '22px',
-                boxShadow: '0 8px 20px -4px rgba(16, 185, 129, 0.4)'
-              }}>
-                🧬
-              </div>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{ fontSize: '20px', fontWeight: '800', color: '#ffffff', letterSpacing: '-0.03em' }}>MOLQEN</span>
-                  <span style={{
-                    fontSize: '10px',
-                    fontWeight: '700',
-                    padding: '2px 7px',
-                    borderRadius: '5px',
-                    background: 'rgba(52, 211, 153, 0.18)',
-                    color: '#34d399',
-                    border: '1px solid rgba(52, 211, 153, 0.35)'
-                  }}>
-                    OS
-                  </span>
-                </div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>Academic Biotech & Wet-Lab Suite</div>
-              </div>
-            </div>
-
-            {/* Inspiring Headline */}
-            <h1 style={{
-              fontSize: '32px',
-              fontWeight: '800',
-              color: '#ffffff',
-              lineHeight: '1.25',
-              letterSpacing: '-0.03em',
-              margin: '0 0 14px 0'
-            }}>
-              The Operating System for Modern Molecular Biology & Biologics R&D
-            </h1>
-            <p style={{
-              fontSize: '14px',
-              color: '#94a3b8',
-              lineHeight: '1.6',
-              marginBottom: '32px',
-              maxWidth: '520px'
-            }}>
-              Eliminate paper lab notebooks, automate chemical hazard compliance, map recombinant plasmid constructs, and maintain 21 CFR Part 11 cryptographic audit trails.
-            </p>
-
-            {/* 3 Scientific Feature Cards */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '32px' }}>
-              <div style={featureCardStyle}>
-                <div style={featureIconBox}>🧬</div>
-                <div>
-                  <div style={featureCardTitle}>In-Silico Biologics & Construct Studio</div>
-                  <div style={featureCardDesc}>
-                    Visual vector maps, automated ORF detection, CRISPR target analysis, and 3D PDB protein folding.
-                  </div>
-                </div>
-              </div>
-
-              <div style={featureCardStyle}>
-                <div style={featureIconBox}>🧪</div>
-                <div>
-                  <div style={featureCardTitle}>GLP Cold-Chain & Reagent Ledger</div>
-                  <div style={featureCardDesc}>
-                    Sub-zero inventory tracking, hazardous threshold alerts, buffer molarity tools, and 96-well plate designer.
-                  </div>
-                </div>
-              </div>
-
-              <div style={featureCardStyle}>
-                <div style={featureIconBox}>🛡️</div>
-                <div>
-                  <div style={featureCardTitle}>Cryptographic Auditability & Electronic Signatures</div>
-                  <div style={featureCardDesc}>
-                    SHA-256 tamper-evident logs, digital chain-of-custody handovers, and deterministic citation verification.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Institutional Trust Badge */}
+      <div className="auth-root-wrapper" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#091e1b', fontFamily: '-apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif' }}>
+        
+        {/* Main Dual-Canvas Section */}
+        <div style={splitAuthContainer} className="split-auth-grid">
+          {/* LEFT COLUMN: SCIENTIFIC MISSION DECK & BIOTECH SHOWCASE */}
+          <div style={showcasePanelStyle} className="showcase-panel">
+            {/* Ambient Background Glow Mesh Orbs */}
             <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              paddingTop: '20px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-              fontSize: '12px',
-              color: '#6ee7b7',
-              fontWeight: '600'
-            }}>
-              <span style={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                background: '#10b981',
-                boxShadow: '0 0 10px #10b981',
-                display: 'inline-block'
-              }} />
-              <span>GLP & ISO 17025 Ready • Trusted across leading biopharma & university labs</span>
-            </div>
-          </div>
-        </div>
-
-        {/* RIGHT COLUMN: RESEARCHER AUTHENTICATION CONSOLE */}
-        <div style={authConsolePanelStyle}>
-          <div style={authCardContainer}>
-            {/* Header Mode Switcher (Sign In vs Create Account) */}
+              position: 'absolute',
+              top: '-15%',
+              left: '-10%',
+              width: '420px',
+              height: '420px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 70%)',
+              filter: 'blur(40px)',
+              pointerEvents: 'none'
+            }} />
             <div style={{
-              display: 'flex',
-              background: '#f1f5f9',
-              borderRadius: '10px',
-              padding: '4px',
-              marginBottom: '24px'
-            }}>
-              <button
-                type="button"
-                onClick={() => { setIsSignUp(false); setAuthError(''); }}
-                style={{
-                  flex: 1,
-                  padding: '9px 12px',
-                  borderRadius: '8px',
-                  border: 'none',
-                  background: !isSignUp ? '#ffffff' : 'transparent',
-                  color: !isSignUp ? '#0f172a' : '#64748b',
-                  fontSize: '13px',
-                  fontWeight: !isSignUp ? '700' : '600',
-                  boxShadow: !isSignUp ? '0 2px 4px rgba(0,0,0,0.06)' : 'none',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease'
-                }}
-              >
-                Sign In
-              </button>
-              <button
-                type="button"
-                onClick={() => { setIsSignUp(true); setAuthError(''); }}
-                style={{
-                  flex: 1,
-                  padding: '9px 12px',
-                  borderRadius: '8px',
-                  border: 'none',
-                  background: isSignUp ? '#ffffff' : 'transparent',
-                  color: isSignUp ? '#0f172a' : '#64748b',
-                  fontSize: '13px',
-                  fontWeight: isSignUp ? '700' : '600',
-                  boxShadow: isSignUp ? '0 2px 4px rgba(0,0,0,0.06)' : 'none',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease'
-                }}
-              >
-                Create Account
-              </button>
-            </div>
+              position: 'absolute',
+              bottom: '-15%',
+              right: '-10%',
+              width: '460px',
+              height: '460px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%)',
+              filter: 'blur(50px)',
+              pointerEvents: 'none'
+            }} />
 
-            <div style={{ marginBottom: '20px' }}>
-              <h2 style={{ margin: '0 0 6px 0', fontSize: '22px', fontWeight: '800', color: '#0f172a', letterSpacing: '-0.02em' }}>
-                {isSignUp ? 'Initialize Researcher Account' : 'Sign In to Laboratory'}
-              </h2>
-              <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
-                {isSignUp
-                  ? 'Join your research group or establish a new GLP laboratory workbench.'
-                  : 'Access your active wet-lab benches, reagents, and construct designs.'}
-              </p>
-            </div>
-
-            {/* Error Callout */}
-            {authError && (
-              <div style={{
-                background: '#fef2f2',
-                border: '1px solid #fecaca',
-                color: '#b91c1c',
-                padding: '10px 14px',
-                borderRadius: '8px',
-                fontSize: '12px',
-                marginBottom: '18px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}>
-                <span>⚠️</span>
-                <span>{authError}</span>
-              </div>
-            )}
-
-            {/* Google Single Sign-On Button */}
-            <button
-              type="button"
-              onClick={handleGoogleAuth}
-              disabled={isSubmitting}
-              style={googleBtnModernStyle}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24">
-                <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"/>
-                <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/>
-                <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12 0 12s.7 2.3 1.9 4.7l3.7-2.9z"/>
-                <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z"/>
-              </svg>
-              <span>Continue with Institutional Google</span>
-            </button>
-
-            {/* Divider */}
-            <div style={{ display: 'flex', alignItems: 'center', margin: '20px 0', color: '#94a3b8', fontSize: '11px', fontWeight: '700', letterSpacing: '0.5px' }}>
-              <div style={{ flex: 1, height: '1px', background: '#e2e8f0' }} />
-              <span style={{ padding: '0 12px' }}>OR WITH EMAIL</span>
-              <div style={{ flex: 1, height: '1px', background: '#e2e8f0' }} />
-            </div>
-
-            {/* Credentials Form */}
-            <form onSubmit={handleEmailAuth} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <div>
-                <label style={modernLabelStyle}>Institutional / Lab Email</label>
-                <div style={{ position: 'relative' }}>
-                  <input
-                    type="email"
-                    placeholder="e.g. scientist@university.edu"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    style={modernInputStyle}
-                  />
-                  <span style={{ position: 'absolute', right: '12px', top: '10px', fontSize: '14px', color: '#94a3b8' }}>✉️</span>
-                </div>
-              </div>
-
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                  <label style={{ ...modernLabelStyle, marginBottom: 0 }}>Password</label>
-                  {!isSignUp && (
-                    <button
-                      type="button"
-                      onClick={() => setAuthError('To reset your institutional credentials, contact your Lab Principal Investigator or system administrator.')}
-                      style={{ background: 'transparent', border: 'none', color: '#2563eb', fontSize: '11px', fontWeight: '600', cursor: 'pointer', padding: 0 }}
-                    >
-                      Forgot?
-                    </button>
-                  )}
-                </div>
-                <div style={{ position: 'relative' }}>
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="Minimum 6 characters"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    style={modernInputStyle}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    style={{ position: 'absolute', right: '10px', top: '9px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px', color: '#64748b' }}
-                  >
-                    {showPassword ? '👁️' : '🔒'}
-                  </button>
-                </div>
-              </div>
-
-              {/* Unbundled Terms & Privacy Acceptance Controls for Sign Up */}
-              {isSignUp && (
-                <div style={{ textAlign: 'left', margin: '4px 0', fontSize: '11px', color: '#475569', background: '#f8fafc', padding: '10px 12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', cursor: 'pointer', marginBottom: '8px' }}>
-                    <input
-                      type="checkbox"
-                      checked={termsAccepted}
-                      onChange={(e) => setTermsAccepted(e.target.checked)}
-                      required
-                      style={{ marginTop: '2px', accentColor: '#059669' }}
-                    />
-                    <span>
-                      I accept the{' '}
-                      <button
-                        type="button"
-                        onClick={() => setLegalModalTab('terms')}
-                        style={{ background: 'transparent', border: 'none', color: '#059669', fontWeight: '700', padding: 0, cursor: 'pointer', textDecoration: 'underline' }}
-                      >
-                        Terms of Service
-                      </button>{' '}
-                      and acknowledge the{' '}
-                      <button
-                        type="button"
-                        onClick={() => setLegalModalTab('privacy')}
-                        style={{ background: 'transparent', border: 'none', color: '#059669', fontWeight: '700', padding: 0, cursor: 'pointer', textDecoration: 'underline' }}
-                      >
-                        Privacy Policy
-                      </button>
-                      . <span style={{ color: '#dc2626' }}>*</span>
-                    </span>
-                  </label>
-
-                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', cursor: 'pointer' }}>
-                    <input
-                      type="checkbox"
-                      checked={marketingAccepted}
-                      onChange={(e) => setMarketingAccepted(e.target.checked)}
-                      style={{ marginTop: '2px', accentColor: '#059669' }}
-                    />
-                    <span>Send me occasional MOLQEN biotech digests & release updates (optional).</span>
-                  </label>
-                </div>
-              )}
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                style={modernPrimaryBtnStyle}
-              >
-                {isSubmitting ? 'Authenticating...' : isSignUp ? 'Initialize Researcher Account →' : 'Sign In to Laboratory →'}
-              </button>
-            </form>
-
-            {/* Quick Demo Access Button */}
-            <div style={{ marginTop: '14px', textAlign: 'center' }}>
-              <button
-                type="button"
-                onClick={handleDemoAccess}
-                style={{
-                  background: 'transparent',
-                  border: '1px dashed #cbd5e1',
-                  borderRadius: '8px',
-                  padding: '7px 14px',
-                  fontSize: '11px',
-                  fontWeight: '600',
-                  color: '#475569',
-                  cursor: 'pointer',
-                  width: '100%',
+            <div style={showcaseContentStyle}>
+              {/* Top Brand Identity */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
+                <div style={{
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '14px',
+                  background: 'linear-gradient(135deg, #10b981 0%, #2563eb 100%)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '6px'
-                }}
-                title="Fill quick demo scholar account"
+                  fontSize: '24px',
+                  boxShadow: '0 8px 24px -4px rgba(16, 185, 129, 0.45)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}>
+                  🧬
+                </div>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '22px', fontWeight: '800', color: '#ffffff', letterSpacing: '-0.03em' }}>MOLQEN</span>
+                    <span style={{
+                      fontSize: '11px',
+                      fontWeight: '800',
+                      padding: '2px 8px',
+                      borderRadius: '6px',
+                      background: 'rgba(52, 211, 153, 0.18)',
+                      color: '#34d399',
+                      border: '1px solid rgba(52, 211, 153, 0.4)'
+                    }}>
+                      OS
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '500' }}>Academic Biotech & Wet-Lab Suite</div>
+                </div>
+              </div>
+
+              {/* Inspiring Headline */}
+              <h1 style={{
+                fontSize: '34px',
+                fontWeight: '800',
+                color: '#ffffff',
+                lineHeight: '1.25',
+                letterSpacing: '-0.03em',
+                margin: '0 0 16px 0'
+              }}>
+                The Operating System for Modern Molecular Biology & Biologics R&D
+              </h1>
+              <p style={{
+                fontSize: '14px',
+                color: '#94a3b8',
+                lineHeight: '1.65',
+                marginBottom: '32px',
+                maxWidth: '520px'
+              }}>
+                Eliminate paper lab notebooks, automate chemical hazard compliance, map recombinant plasmid constructs, and maintain 21 CFR Part 11 cryptographic audit trails.
+              </p>
+
+              {/* 3 Scientific Feature Cards with Frosted Glass Borders */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '32px' }}>
+                <div style={featureCardStyle} className="frosted-glass-card">
+                  <div style={featureIconBox}>🧬</div>
+                  <div>
+                    <div style={featureCardTitle}>In-Silico Biologics & Construct Studio</div>
+                    <div style={featureCardDesc}>
+                      Visual vector maps, automated ORF detection, CRISPR target analysis, and 3D PDB protein folding.
+                    </div>
+                  </div>
+                </div>
+
+                <div style={featureCardStyle} className="frosted-glass-card">
+                  <div style={featureIconBox}>🧪</div>
+                  <div>
+                    <div style={featureCardTitle}>GLP Cold-Chain & Reagent Ledger</div>
+                    <div style={featureCardDesc}>
+                      Sub-zero inventory tracking, hazardous threshold alerts, buffer molarity tools, and 96-well plate designer.
+                    </div>
+                  </div>
+                </div>
+
+                <div style={featureCardStyle} className="frosted-glass-card">
+                  <div style={featureIconBox}>🛡️</div>
+                  <div>
+                    <div style={featureCardTitle}>Cryptographic Auditability & Electronic Signatures</div>
+                    <div style={featureCardDesc}>
+                      SHA-256 tamper-evident logs, digital chain-of-custody handovers, and deterministic citation verification.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Institutional Trust Badge */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                paddingTop: '20px',
+                borderTop: '1px solid rgba(16, 185, 129, 0.15)',
+                fontSize: '12px',
+                color: '#6ee7b7',
+                fontWeight: '600'
+              }}>
+                <span style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  background: '#10b981',
+                  boxShadow: '0 0 12px #10b981',
+                  display: 'inline-block',
+                  animation: 'beaconPulse 2.5s infinite'
+                }} />
+                <span>GLP & ISO 17025 Ready • Trusted across leading biopharma & university labs</span>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: RESEARCHER AUTHENTICATION CONSOLE */}
+          <div style={authConsolePanelStyle} className="auth-console-panel">
+            <div style={authCardContainer} className="auth-card-elevation">
+              {/* Header Mode Switcher (Sign In vs Create Account) */}
+              <div style={{
+                display: 'flex',
+                background: '#f1f5f9',
+                borderRadius: '12px',
+                padding: '4px',
+                marginBottom: '26px'
+              }}>
+                <button
+                  type="button"
+                  onClick={() => { setIsSignUp(false); setAuthError(''); }}
+                  className="auth-tab-btn"
+                  style={{
+                    flex: 1,
+                    padding: '10px 14px',
+                    borderRadius: '9px',
+                    border: 'none',
+                    background: !isSignUp ? '#ffffff' : 'transparent',
+                    color: !isSignUp ? '#0f172a' : '#64748b',
+                    fontSize: '13px',
+                    fontWeight: !isSignUp ? '700' : '600',
+                    boxShadow: !isSignUp ? '0 2px 6px rgba(0,0,0,0.06)' : 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
+                  }}
+                >
+                  Sign In
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setIsSignUp(true); setAuthError(''); }}
+                  className="auth-tab-btn"
+                  style={{
+                    flex: 1,
+                    padding: '10px 14px',
+                    borderRadius: '9px',
+                    border: 'none',
+                    background: isSignUp ? '#ffffff' : 'transparent',
+                    color: isSignUp ? '#0f172a' : '#64748b',
+                    fontSize: '13px',
+                    fontWeight: isSignUp ? '700' : '600',
+                    boxShadow: isSignUp ? '0 2px 6px rgba(0,0,0,0.06)' : 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
+                  }}
+                >
+                  Create Account
+                </button>
+              </div>
+
+              <div style={{ marginBottom: '22px' }}>
+                <h2 style={{ margin: '0 0 6px 0', fontSize: '23px', fontWeight: '800', color: '#0f172a', letterSpacing: '-0.025em' }}>
+                  {isSignUp ? 'Initialize Researcher Account' : 'Sign In to Laboratory'}
+                </h2>
+                <p style={{ margin: 0, fontSize: '13px', color: '#64748b', lineHeight: '1.5' }}>
+                  {isSignUp
+                    ? 'Join your research group or establish a new GLP laboratory workbench.'
+                    : 'Access your active wet-lab benches, reagents, and construct designs.'}
+                </p>
+              </div>
+
+              {/* Error Callout */}
+              {authError && (
+                <div style={{
+                  background: '#fef2f2',
+                  border: '1px solid #fecaca',
+                  color: '#b91c1c',
+                  padding: '11px 14px',
+                  borderRadius: '10px',
+                  fontSize: '12px',
+                  marginBottom: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}>
+                  <span>⚠️</span>
+                  <span>{authError}</span>
+                </div>
+              )}
+
+              {/* Google Single Sign-On Button */}
+              <button
+                type="button"
+                onClick={handleGoogleAuth}
+                disabled={isSubmitting}
+                className="google-sso-btn"
+                style={googleBtnModernStyle}
               >
-                <span>⚡ Quick Fill Demo Credentials</span>
+                <svg width="18" height="18" viewBox="0 0 24 24">
+                  <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"/>
+                  <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/>
+                  <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 12 0 12s.7 2.3 1.9 4.7l3.7-2.9z"/>
+                  <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z"/>
+                </svg>
+                <span>Continue with Institutional Google</span>
               </button>
-            </div>
 
-            {/* Bottom Security Footer */}
-            <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-              <div style={{ fontSize: '11px', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span>🔒 256-bit AES-GCM Enclave</span>
-                <span>•</span>
-                <span>21 CFR Part 11 Compliant</span>
+              {/* Divider */}
+              <div style={{ display: 'flex', alignItems: 'center', margin: '22px 0', color: '#94a3b8', fontSize: '11px', fontWeight: '700', letterSpacing: '0.6px' }}>
+                <div style={{ flex: 1, height: '1px', background: '#e2e8f0' }} />
+                <span style={{ padding: '0 12px' }}>OR WITH EMAIL</span>
+                <div style={{ flex: 1, height: '1px', background: '#e2e8f0' }} />
               </div>
-              <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#64748b' }}>
-                <button type="button" onClick={() => setLegalModalTab('privacy')} style={legalLinkBtnStyle}>Privacy Policy</button>
-                <span>•</span>
-                <button type="button" onClick={() => setLegalModalTab('terms')} style={legalLinkBtnStyle}>Terms</button>
-                <span>•</span>
-                <button type="button" onClick={() => setLegalModalTab('refunds')} style={legalLinkBtnStyle}>Refunds</button>
-                <span>•</span>
-                <button type="button" onClick={() => setLegalModalTab('licenses')} style={legalLinkBtnStyle}>Licenses</button>
-              </div>
-            </div>
 
-            <LegalCenter
-              isOpen={Boolean(legalModalTab)}
-              initialTab={legalModalTab || 'privacy'}
-              onClose={() => setLegalModalTab(null)}
-              user={user}
-            />
+              {/* Credentials Form */}
+              <form onSubmit={handleEmailAuth} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <div>
+                  <label style={modernLabelStyle}>Institutional / Lab Email</label>
+                  <div style={{ position: 'relative' }}>
+                    <input
+                      type="email"
+                      placeholder="e.g. scientist@university.edu"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="auth-input-field"
+                      style={modernInputStyle}
+                    />
+                    <span style={{ position: 'absolute', right: '12px', top: '11px', fontSize: '14px', color: '#94a3b8' }}>✉️</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '5px' }}>
+                    <label style={{ ...modernLabelStyle, marginBottom: 0 }}>Password</label>
+                    {!isSignUp && (
+                      <button
+                        type="button"
+                        onClick={() => setAuthError('To reset your institutional credentials, contact your Lab Principal Investigator or system administrator.')}
+                        style={{ background: 'transparent', border: 'none', color: '#2563eb', fontSize: '11px', fontWeight: '600', cursor: 'pointer', padding: 0 }}
+                      >
+                        Forgot?
+                      </button>
+                    )}
+                  </div>
+                  <div style={{ position: 'relative' }}>
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="Minimum 6 characters"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      className="auth-input-field"
+                      style={modernInputStyle}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{ position: 'absolute', right: '10px', top: '10px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px', color: '#64748b' }}
+                      title={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? '👁️' : '🔒'}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Unbundled Terms & Privacy Acceptance Controls for Sign Up */}
+                {isSignUp && (
+                  <div style={{ textAlign: 'left', margin: '4px 0', fontSize: '11px', color: '#475569', background: '#f8fafc', padding: '12px 14px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', cursor: 'pointer', marginBottom: '8px' }}>
+                      <input
+                        type="checkbox"
+                        checked={termsAccepted}
+                        onChange={(e) => setTermsAccepted(e.target.checked)}
+                        required
+                        style={{ marginTop: '2px', accentColor: '#059669' }}
+                      />
+                      <span>
+                        I accept the{' '}
+                        <button
+                          type="button"
+                          onClick={() => setLegalModalTab('terms')}
+                          style={{ background: 'transparent', border: 'none', color: '#059669', fontWeight: '700', padding: 0, cursor: 'pointer', textDecoration: 'underline' }}
+                        >
+                          Terms of Service
+                        </button>{' '}
+                        and acknowledge the{' '}
+                        <button
+                          type="button"
+                          onClick={() => setLegalModalTab('privacy')}
+                          style={{ background: 'transparent', border: 'none', color: '#059669', fontWeight: '700', padding: 0, cursor: 'pointer', textDecoration: 'underline' }}
+                        >
+                          Privacy Policy
+                        </button>
+                        . <span style={{ color: '#dc2626' }}>*</span>
+                      </span>
+                    </label>
+
+                    <label style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', cursor: 'pointer' }}>
+                      <input
+                        type="checkbox"
+                        checked={marketingAccepted}
+                        onChange={(e) => setMarketingAccepted(e.target.checked)}
+                        style={{ marginTop: '2px', accentColor: '#059669' }}
+                      />
+                      <span>Send me occasional MOLQEN biotech digests & release updates (optional).</span>
+                    </label>
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="auth-primary-submit-btn"
+                  style={modernPrimaryBtnStyle}
+                >
+                  {isSubmitting ? 'Authenticating...' : isSignUp ? 'Initialize Researcher Account →' : 'Sign In to Laboratory →'}
+                </button>
+              </form>
+
+              {/* Quick Demo Access Button */}
+              <div style={{ marginTop: '16px', textAlign: 'center' }}>
+                <button
+                  type="button"
+                  onClick={handleDemoAccess}
+                  className="auth-demo-btn"
+                  style={{
+                    background: 'transparent',
+                    border: '1px dashed #cbd5e1',
+                    borderRadius: '10px',
+                    padding: '8px 14px',
+                    fontSize: '11px',
+                    fontWeight: '600',
+                    color: '#475569',
+                    cursor: 'pointer',
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '6px',
+                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
+                  }}
+                  title="Fill quick demo scholar account"
+                >
+                  <span>⚡ Quick Fill Demo Credentials</span>
+                </button>
+              </div>
+
+              {/* Bottom Security Footer */}
+              <div style={{ marginTop: '26px', paddingTop: '18px', borderTop: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                <div style={{ fontSize: '11px', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>🔒 256-bit AES-GCM Enclave</span>
+                  <span>•</span>
+                  <span>21 CFR Part 11 Compliant</span>
+                </div>
+                <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#64748b' }}>
+                  <button type="button" onClick={() => setLegalModalTab('privacy')} style={legalLinkBtnStyle}>Privacy Policy</button>
+                  <span>•</span>
+                  <button type="button" onClick={() => setLegalModalTab('terms')} style={legalLinkBtnStyle}>Terms</button>
+                  <span>•</span>
+                  <button type="button" onClick={() => setLegalModalTab('refunds')} style={legalLinkBtnStyle}>Refunds</button>
+                  <span>•</span>
+                  <button type="button" onClick={() => setLegalModalTab('licenses')} style={legalLinkBtnStyle}>Licenses</button>
+                </div>
+              </div>
+
+              <LegalCenter
+                isOpen={Boolean(legalModalTab)}
+                initialTab={legalModalTab || 'privacy'}
+                onClose={() => setLegalModalTab(null)}
+                user={user}
+              />
+            </div>
           </div>
         </div>
+
+        {/* ========================================================================= */}
+        {/* CONTINUOUS FLOWING TECH & COMPLIANCE MARQUEE BANNER                       */}
+        {/* ========================================================================= */}
+        <section 
+          className="infra-marquee-section"
+          aria-label="Enterprise Infrastructure and Compliance Credentials"
+          style={{
+            background: 'linear-gradient(180deg, rgba(9, 30, 27, 0.98) 0%, #051311 100%)',
+            borderTop: '1px solid rgba(16, 185, 129, 0.18)',
+            padding: '20px 0 24px 0',
+            position: 'relative',
+            overflow: 'hidden',
+            width: '100%',
+            flexShrink: 0
+          }}
+        >
+          {/* Section Header */}
+          <div style={{ textAlign: 'center', marginBottom: '14px', padding: '0 20px' }}>
+            <span style={{
+              fontSize: '11px',
+              fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+              fontWeight: '700',
+              textTransform: 'uppercase',
+              letterSpacing: '0.14em',
+              color: '#94a3b8',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
+              POWERING ENTERPRISE-GRADE IN-SILICO BENCH INFRASTRUCTURE
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
+            </span>
+          </div>
+
+          {/* Marquee Track Container with Left and Right Fade-To-Transparent Masks */}
+          <div style={{
+            position: 'relative',
+            width: '100%',
+            overflow: 'hidden',
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            {/* Left Edge Mask */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 0,
+              width: '120px',
+              background: 'linear-gradient(to right, #091e1b 15%, transparent 100%)',
+              zIndex: 10,
+              pointerEvents: 'none'
+            }} />
+
+            {/* Right Edge Mask */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: '120px',
+              background: 'linear-gradient(to left, #051311 15%, transparent 100%)',
+              zIndex: 10,
+              pointerEvents: 'none'
+            }} />
+
+            {/* Infinite Horizontal Marquee Track (Double duplicate for seamless loop) */}
+            <div className="marquee-track" style={{
+              display: 'flex',
+              gap: '16px',
+              width: 'max-content',
+              animation: 'marqueeLoop 38s linear infinite',
+              paddingLeft: '16px'
+            }}>
+              {[...INFRA_CREDENTIALS, ...INFRA_CREDENTIALS].map((item, idx) => (
+                <div
+                  key={`${item.name}-${idx}`}
+                  className="marquee-item-card"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '8px 18px',
+                    background: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid rgba(16, 185, 129, 0.16)',
+                    borderRadius: '12px',
+                    backdropFilter: 'blur(8px)',
+                    WebkitBackdropFilter: 'blur(8px)',
+                    whiteSpace: 'nowrap',
+                    flexShrink: 0,
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <div style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '8px',
+                    background: 'rgba(16, 185, 129, 0.12)',
+                    border: '1px solid rgba(16, 185, 129, 0.25)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '16px'
+                  }}>
+                    {item.icon}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '700', color: '#f8fafc' }}>
+                        {item.name}
+                      </span>
+                      <span style={{
+                        fontSize: '9px',
+                        fontWeight: '700',
+                        color: '#34d399',
+                        background: 'rgba(52, 211, 153, 0.12)',
+                        border: '1px solid rgba(52, 211, 153, 0.28)',
+                        padding: '1px 6px',
+                        borderRadius: '4px'
+                      }}>
+                        {item.badge}
+                      </span>
+                    </div>
+                    <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '500' }}>
+                      {item.role}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Scoped CSS for Keyframes and Micro-Interactions */}
+        <style>{`
+          @keyframes marqueeLoop {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+          .marquee-track:hover {
+            animation-play-state: paused;
+          }
+          @keyframes beaconPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.6; }
+          }
+          .auth-input-field:focus {
+            border-color: #10b981 !important;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+          }
+          .auth-primary-submit-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4) !important;
+          }
+          .auth-primary-submit-btn:active:not(:disabled) {
+            transform: translateY(0);
+          }
+          .google-sso-btn:hover:not(:disabled) {
+            background-color: #f8fafc !important;
+            border-color: #94a3b8 !important;
+            transform: translateY(-1px);
+          }
+          .google-sso-btn:active:not(:disabled) {
+            transform: translateY(0);
+          }
+          .auth-demo-btn:hover {
+            border-color: #2563eb !important;
+            color: #2563eb !important;
+            background: rgba(37, 99, 235, 0.04) !important;
+          }
+          .frosted-glass-card {
+            transition: transform 0.2s ease, border-color 0.2s ease;
+          }
+          .frosted-glass-card:hover {
+            transform: translateX(4px);
+            border-color: rgba(16, 185, 129, 0.35) !important;
+          }
+          .marquee-item-card:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(52, 211, 153, 0.45) !important;
+          }
+          @media (max-width: 960px) {
+            .split-auth-grid {
+              grid-template-columns: 1fr !important;
+            }
+            .showcase-panel {
+              padding: 40px 24px !important;
+            }
+            .auth-console-panel {
+              padding: 32px 18px !important;
+            }
+          }
+        `}</style>
       </div>
     );
   }
@@ -748,8 +1034,8 @@ const splitAuthContainer = {
 };
 
 const showcasePanelStyle = {
-  background: 'linear-gradient(145deg, #091e1b 0%, #064e3b 45%, #0f172a 100%)',
-  padding: '60px 48px',
+  background: 'radial-gradient(circle at 18% 25%, rgba(16, 185, 129, 0.18) 0%, transparent 48%), radial-gradient(circle at 82% 78%, rgba(37, 99, 235, 0.18) 0%, transparent 52%), linear-gradient(145deg, #061915 0%, #064e3b 45%, #0b1f28 100%)',
+  padding: '64px 48px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -768,19 +1054,21 @@ const featureCardStyle = {
   display: 'flex',
   alignItems: 'flex-start',
   gap: '14px',
-  padding: '14px 16px',
-  borderRadius: '12px',
-  background: 'rgba(255, 255, 255, 0.05)',
-  border: '1px solid rgba(255, 255, 255, 0.1)',
-  backdropFilter: 'blur(8px)',
-  WebkitBackdropFilter: 'blur(8px)'
+  padding: '16px 18px',
+  borderRadius: '14px',
+  background: 'rgba(255, 255, 255, 0.04)',
+  border: '1px solid rgba(16, 185, 129, 0.18)',
+  backdropFilter: 'blur(12px)',
+  WebkitBackdropFilter: 'blur(12px)',
+  boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.2)'
 };
 
 const featureIconBox = {
-  width: '36px',
-  height: '36px',
-  borderRadius: '8px',
-  background: 'rgba(255, 255, 255, 0.1)',
+  width: '38px',
+  height: '38px',
+  borderRadius: '10px',
+  background: 'rgba(16, 185, 129, 0.12)',
+  border: '1px solid rgba(16, 185, 129, 0.25)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -798,11 +1086,11 @@ const featureCardTitle = {
 const featureCardDesc = {
   fontSize: '12px',
   color: '#cbd5e1',
-  lineHeight: '1.4'
+  lineHeight: '1.45'
 };
 
 const authConsolePanelStyle = {
-  background: '#f8fafc',
+  background: 'radial-gradient(ellipse at 50% 20%, #f1f5f9 0%, #e2e8f0 100%)',
   padding: '48px 32px',
   display: 'flex',
   alignItems: 'center',
@@ -812,12 +1100,12 @@ const authConsolePanelStyle = {
 
 const authCardContainer = {
   background: '#ffffff',
-  border: '1px solid #e2e8f0',
-  borderRadius: '20px',
+  border: '1px solid rgba(226, 232, 240, 0.9)',
+  borderRadius: '24px',
   padding: '40px 36px',
   maxWidth: '440px',
   width: '100%',
-  boxShadow: '0 20px 40px -15px rgba(15, 23, 42, 0.08)'
+  boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.8) inset'
 };
 
 const googleBtnModernStyle = {
@@ -834,8 +1122,8 @@ const googleBtnModernStyle = {
   alignItems: 'center',
   justifyContent: 'center',
   gap: '10px',
-  boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-  transition: 'all 0.15s ease'
+  boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
 };
 
 const modernLabelStyle = {
@@ -851,14 +1139,14 @@ const modernLabelStyle = {
 const modernInputStyle = {
   width: '100%',
   padding: '11px 14px',
-  borderRadius: '8px',
+  borderRadius: '9px',
   border: '1px solid #cbd5e1',
   background: '#ffffff',
   color: '#0f172a',
   boxSizing: 'border-box',
   fontSize: '13px',
   outline: 'none',
-  transition: 'border-color 0.15s ease'
+  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
 };
 
 const modernPrimaryBtnStyle = {
@@ -871,8 +1159,8 @@ const modernPrimaryBtnStyle = {
   fontWeight: '700',
   cursor: 'pointer',
   fontSize: '13px',
-  boxShadow: '0 2px 8px rgba(5, 150, 105, 0.3)',
-  transition: 'all 0.15s ease'
+  boxShadow: '0 3px 10px rgba(5, 150, 105, 0.35)',
+  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
 };
 
 const legalLinkBtnStyle = {

@@ -269,10 +269,15 @@ export default function LabMindChat({ currentLab, user, role = 'student' }) {
               });
             }
             if (decryptedResponse) {
+              // Sanitize legacy offline errors from database
+              const cleanText = (decryptedResponse.includes('Offline') || decryptedResponse.includes('Unable to stream') || decryptedResponse.includes('Load failed'))
+                ? generateInSilicoBenchResponse(decryptedPrompt || 'hi', currentLab, userRole, isPI, {})
+                : decryptedResponse;
+
               loaded.push({
                 id: `ai_${docSnap.id}`,
                 sender: 'ai',
-                text: decryptedResponse,
+                text: cleanText,
                 questionSource: decryptedPrompt,
                 timestamp: data.timestamp?.toDate ? data.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Saved',
                 isEncrypted: true
@@ -291,7 +296,7 @@ export default function LabMindChat({ currentLab, user, role = 'student' }) {
 
     loadEncryptedHistory();
     return () => { isMounted = false; };
-  }, [currentLab?.id, isOpen, defaultWelcomeMessage]);
+  }, [currentLab, isOpen, defaultWelcomeMessage, userRole, isPI]);
 
   // Handle Feedback (👍 / 👎)
   const handleFeedback = async (msgId, isHelpful, querySource, answerText) => {
@@ -796,14 +801,36 @@ Format all mathematical equations with LaTeX ($...$) and chemical formulas clear
                 </div>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="tactile-close-btn"
-              title="Close Drawer"
-            >
-              ✕
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  setMessages([defaultWelcomeMessage]);
+                  showToast('Bench session reset', { type: 'info', icon: '🧹' });
+                }}
+                className="tactile-pill-btn"
+                style={{
+                  background: '#f8fafc',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '6px',
+                  padding: '3px 8px',
+                  fontSize: '11px',
+                  color: '#64748b',
+                  cursor: 'pointer'
+                }}
+                title="Reset session view"
+              >
+                🧹 Clear
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="tactile-close-btn"
+                title="Close Drawer"
+              >
+                ✕
+              </button>
+            </div>
           </div>
 
           {/* Quick Action Suggestion Chips based on Role */}
