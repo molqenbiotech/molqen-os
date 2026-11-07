@@ -19,6 +19,7 @@ import GrantTracker from './components/GrantTracker';
 import GraduationHandover from './components/GraduationHandover';
 import WhatsAppBot from './components/WhatsAppBot';
 import AuthAndWorkspace from './components/AuthAndWorkspace';
+import TrustMarquee from './components/TrustMarquee';
 import DashboardHome from './components/DashboardHome';
 import Inventory from './components/Inventory';
 import Instruments from './components/Instruments';
@@ -493,7 +494,12 @@ export default function App() {
   }
 
   if (!user) {
-    return <AuthAndWorkspace onAuthSuccess={setUser} />;
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#091e1b' }}>
+        <AuthAndWorkspace onAuthSuccess={setUser} />
+        <TrustMarquee />
+      </div>
+    );
   }
 
   const userInitials = (user.displayName || user.email || 'U')
