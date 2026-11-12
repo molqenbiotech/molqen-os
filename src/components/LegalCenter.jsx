@@ -103,6 +103,7 @@ export default function LegalCenter({
   };
 
   const navItems = [
+    { id: 'ownership', label: 'Data Ownership & IP', icon: '🧬' },
     { id: 'privacy', label: 'Privacy Policy', icon: '🔒' },
     { id: 'terms', label: 'Terms of Service', icon: '📜' },
     { id: 'refunds', label: 'Refunds & Cancellation', icon: '💳' },
@@ -268,6 +269,57 @@ export default function LegalCenter({
               outline: 'none'
             }}
           >
+            {/* 0. DATA OWNERSHIP & INTELLECTUAL PROPERTY */}
+            {activeTab === 'ownership' && (
+              <article>
+                <div style={{ borderBottom: '2px solid #059669', paddingBottom: '12px', marginBottom: '20px' }}>
+                  <h1 style={{ fontSize: '20px', fontWeight: '800', margin: 0, color: '#064e3b' }}>
+                    Laboratory Intellectual Property & Data Ownership Policy
+                  </h1>
+                  <span style={{ fontSize: '11px', color: '#64748B' }}>
+                    100% Customer IP Rights Guarantee • Zero Public AI Training • Client-Side AES-256-GCM Enclave
+                  </span>
+                </div>
+
+                <div
+                  style={{
+                    background: '#f0fdf4',
+                    border: '1px solid #bbf7d0',
+                    borderRadius: '10px',
+                    padding: '14px 18px',
+                    marginBottom: '20px',
+                    color: '#166534'
+                  }}
+                >
+                  <strong style={{ fontSize: '13px' }}>🛡️ 100% Laboratory Ownership Guarantee:</strong>
+                  <p style={{ margin: '4px 0 0 0', fontSize: '12px', lineHeight: '1.5' }}>
+                    All uploaded biological sequences, plasmid maps, experimental protocol notebooks, raw microscopy/gel imagery, chemical inventory manifests, and research manuscripts remain the sole, absolute, and unencumbered intellectual property of the originating laboratory or institution.
+                  </p>
+                </div>
+
+                <section style={sectionStyle}>
+                  <h3>1. Zero AI Training on Customer Scientific Data</h3>
+                  <p>
+                    Neither MOLQEN OS nor any upstream inference partner utilizes customer laboratory records, sequence designs, reagent quantities, or experimental notebooks to train, fine-tune, or reinforce foundation artificial intelligence models.
+                  </p>
+                </section>
+
+                <section style={sectionStyle}>
+                  <h3>2. Client-Side Cryptographic Confidentiality</h3>
+                  <p>
+                    Working drafts and AI copilot conversations are protected with client-side authenticated AES-256-GCM encryption before transit or cloud storage. Decryption keys are managed strictly within authorized laboratory member enclaves.
+                  </p>
+                </section>
+
+                <section style={sectionStyle}>
+                  <h3>3. Data Portability & Statutory Erasure</h3>
+                  <p>
+                    Laboratories maintain continuous export rights (JSON, CSV, XLSX) and can initiate irreversible cascading deletion of all tenant data under GDPR Article 17 and CCPA protocols within 30 statutory days.
+                  </p>
+                </section>
+              </article>
+            )}
+
             {/* 1. PRIVACY POLICY */}
             {activeTab === 'privacy' && (
               <article>

@@ -15,6 +15,20 @@
     <!-- Typography Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- GitHub Pages SPA Route Restoration Script -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search && l.search.indexOf('p=') !== -1) {
+          var params = new URLSearchParams(l.search);
+          var path = params.get('p');
+          if (path) {
+            var restoredUrl = l.pathname.replace(/\/$/, '') + '/' + decodeURIComponent(path) + (params.get('q') ? '?' + decodeURIComponent(params.get('q')) : '') + l.hash;
+            window.history.replaceState(null, null, restoredUrl);
+          }
+        }
+      }(window.location));
+    </script>
     
     <title>MOLQEN OS - Academic Biotech Suite</title>
   </head>

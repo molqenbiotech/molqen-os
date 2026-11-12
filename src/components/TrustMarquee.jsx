@@ -25,14 +25,14 @@ export default function TrustMarquee() {
       logo: `${baseUrl}brands/cloudinary.png`,
     },
     {
-      name: '21 CFR Part 11',
-      role: 'Cryptographic Electronic Signatures',
-      badge: 'GLP VALIDATED',
+      name: 'Cryptographic Audit Logs',
+      role: 'Tamper-Evident Bench & SOP Versioning',
+      badge: 'SHA-256 AUDIT',
     },
     {
-      name: 'ISO/IEC 17025',
-      role: 'Laboratory Testing Competence Standard',
-      badge: 'COMPLIANT',
+      name: 'GLP & ISO 17025 Architecture',
+      role: 'Structured Reagent & Cold-Chain Ledgers',
+      badge: 'ISO-READY',
     },
   ];
 

@@ -87,16 +87,16 @@ Configure your API credentials:
 
 ```ini
 # Firebase Authentication & Database
-VITE_FIREBASE_API_KEY=AIzaSy...
+VITE_FIREBASE_API_KEY=your_firebase_api_key
 VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
 VITE_FIREBASE_PROJECT_ID=your-project-id
 VITE_FIREBASE_STORAGE_BUCKET=your-project.firebasestorage.app
 VITE_FIREBASE_MESSAGING_SENDER_ID=1234567890
 VITE_FIREBASE_APP_ID=1:1234567890:web:abcdef
 
-# Google Gemini API for MOLQEN Scientific AI
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
-VITE_GEMINI_MODEL=gemini-3.8-flash
+# Cloudflare Worker / Backend AI Proxy for MOLQEN Scientific AI
+VITE_GEMINI_PROXY_URL=https://gemini-proxy.molqen.workers.dev
+VITE_GEMINI_MODEL=gemini-2.5-flash
 
 # Cloudinary Cloud Storage for Gel Images, Microscopy & Protocol Attachments
 VITE_CLOUDINARY_CLOUD_NAME=k4qswf4f

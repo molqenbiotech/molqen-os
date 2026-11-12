@@ -473,9 +473,9 @@ export default function App() {
           }}>
             <span>🔒 AES-GCM-256 Session</span>
             <span>•</span>
-            <span>21 CFR Part 11 Ready</span>
+            <span>SHA-256 Verified Audit Logs</span>
             <span>•</span>
-            <span>ISO 17025</span>
+            <span>ISO 17025 Architecture</span>
           </div>
         </div>
 

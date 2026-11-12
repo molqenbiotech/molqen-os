@@ -16,7 +16,7 @@ import {
   onSnapshot 
 } from 'firebase/firestore';
 import { logTermsAcceptance } from '../utils/termsLog';
-import LegalCenter from './LegalCenter';
+import LegalModal from './LegalModal';
 
 export default function AuthAndWorkspace({ user, onEnterLab, onAuthSuccess }) {
   // Auth Form State
@@ -277,7 +277,7 @@ export default function AuthAndWorkspace({ user, onEnterLab, onAuthSuccess }) {
                 marginBottom: '32px',
                 maxWidth: '520px'
               }}>
-                Eliminate paper lab notebooks, automate chemical hazard compliance, map recombinant plasmid constructs, and maintain 21 CFR Part 11 cryptographic audit trails.
+                Stop losing wet-lab protocols and burning grant budgets in spreadsheets—manage versioned SOPs, cold-chain reagents, and tamper-evident audit logs in one workspace.
               </p>
 
               {/* 3 Scientific Feature Cards with Frosted Glass Borders */}
@@ -585,24 +585,25 @@ export default function AuthAndWorkspace({ user, onEnterLab, onAuthSuccess }) {
                 <div style={{ fontSize: '11px', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span>🔒 256-bit AES-GCM Enclave</span>
                   <span>•</span>
-                  <span>21 CFR Part 11 Compliant</span>
+                  <span>SHA-256 Tamper-Evident Logs</span>
+                  <span>•</span>
+                  <span>GLP & ISO 17025 Architecture</span>
                 </div>
-                <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#64748b' }}>
+                <div style={{ display: 'flex', gap: '8px', fontSize: '11px', color: '#64748b', flexWrap: 'wrap', justifyContent: 'center' }}>
                   <button type="button" onClick={() => setLegalModalTab('privacy')} style={legalLinkBtnStyle}>Privacy Policy</button>
                   <span>•</span>
-                  <button type="button" onClick={() => setLegalModalTab('terms')} style={legalLinkBtnStyle}>Terms</button>
+                  <button type="button" onClick={() => setLegalModalTab('terms')} style={legalLinkBtnStyle}>Terms of Service</button>
                   <span>•</span>
-                  <button type="button" onClick={() => setLegalModalTab('refunds')} style={legalLinkBtnStyle}>Refunds</button>
+                  <button type="button" onClick={() => setLegalModalTab('ownership')} style={{ ...legalLinkBtnStyle, color: '#059669', fontWeight: '700' }}>Data Ownership & IP</button>
                   <span>•</span>
-                  <button type="button" onClick={() => setLegalModalTab('licenses')} style={legalLinkBtnStyle}>Licenses</button>
+                  <button type="button" onClick={() => setLegalModalTab('refunds')} style={legalLinkBtnStyle}>Refunds & Cancellation</button>
                 </div>
               </div>
 
-              <LegalCenter
+              <LegalModal
                 isOpen={Boolean(legalModalTab)}
-                initialTab={legalModalTab || 'privacy'}
+                initialTab={legalModalTab || 'ownership'}
                 onClose={() => setLegalModalTab(null)}
-                user={user}
               />
             </div>
           </div>

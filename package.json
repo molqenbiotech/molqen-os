@@ -18,6 +18,7 @@
     "html5-qrcode": "^2.3.8",
     "katex": "^0.19.1",
     "mammoth": "^1.13.0",
+    "papaparse": "^5.7.1",
     "qrcode.react": "^4.2.0",
     "react": "^19.3.1",
     "react-chartjs-2": "^5.3.1",

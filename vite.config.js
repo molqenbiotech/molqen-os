@@ -4,6 +4,8 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  // CUSTOM DOMAIN READY: Switch to base: '/' once molqen.eu.org DNS propagation completes.
+  // When deploying to GitHub Pages default subdirectory, keep base: '/molqen-os/'.
   base: '/molqen-os/',
   build: {
     chunkSizeWarningLimit: 1200,

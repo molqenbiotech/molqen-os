@@ -16,6 +16,7 @@ import {
 import { encryptLabPayload, decryptLabPayload } from '../utils/labCrypto';
 import { showToast } from '../utils/toast';
 import { playTactileClick } from '../utils/audioFeedback';
+import { executeAiQuery, isProxyConfigured } from '../services/geminiService';
 
 /**
  * Resilient In-Silico Scientific Knowledge & Formulation Engine
@@ -495,158 +496,24 @@ BIOTECH IN-SILICO UTILITIES ENGINE:
 
 Format all mathematical equations with LaTeX ($...$) and chemical formulas clearly. Provide clean Markdown with bold bullet points.`;
 
-      // 3. API Execution with fast model cascading and resilient timeout
-      const proxyUrl = import.meta.env.VITE_AI_PROXY_URL;
-      const directApiKey = import.meta.env.VITE_GEMINI_API_KEY;
-
+      // 3. API Execution via Hardened Proxy Wrapper (Zero API keys in client bundles)
       let apiSuccess = false;
+      const aiResult = await executeAiQuery({
+        prompt: queryText,
+        user,
+        systemInstruction,
+        currentLab,
+        role: userRole,
+        isPI,
+        telemetry
+      });
 
-      if (proxyUrl) {
-        // Secure Cloud Function / Backend Proxy
-        try {
-          const proxyRes = await fetch(proxyUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              labId: currentLab.id,
-              role: userRole,
-              systemInstruction,
-              prompt: queryText
-            })
-          });
-          if (proxyRes.ok) {
-            const data = await proxyRes.json();
-            if (data?.answer) {
-              fullAnswer = data.answer;
-              setMessages((prev) =>
-                prev.map((msg) => (msg.id === aiMsgId ? { ...msg, text: fullAnswer } : msg))
-              );
-              apiSuccess = true;
-            }
-          }
-        } catch (proxyErr) {
-          console.warn('Proxy fetch note:', proxyErr.message);
-        }
-      } else if (directApiKey) {
-        // Direct Gemini streaming with resilient model fallback
-        const candidateModels = [
-          import.meta.env.VITE_GEMINI_MODEL,
-          'gemini-2.5-flash',
-          'gemini-2.5-flash-lite',
-          'gemini-flash-latest',
-          'gemini-3.8-flash'
-        ].filter(Boolean);
-        const uniqueModels = [...new Set(candidateModels)];
-
-        for (const candidateModel of uniqueModels) {
-          try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 4500);
-
-            const streamRes = await fetch(
-              `https://generativelanguage.googleapis.com/v1beta/models/${candidateModel}:streamGenerateContent?alt=sse`,
-              {
-                method: 'POST',
-                signal: controller.signal,
-                headers: {
-                  'Content-Type': 'application/json',
-                  'x-goog-api-key': directApiKey
-                },
-                body: JSON.stringify({
-                  contents: [
-                    {
-                      role: 'user',
-                      parts: [{ text: `${systemInstruction}\n\nUser Question: ${queryText}` }]
-                    }
-                  ],
-                  generationConfig: {
-                    temperature: 0.2,
-                    maxOutputTokens: 1200
-                  }
-                })
-              }
-            );
-
-            clearTimeout(timeoutId);
-
-            if (streamRes.ok && streamRes.body) {
-              const reader = streamRes.body.getReader();
-              const decoder = new TextDecoder('utf-8');
-
-              while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-
-                const chunk = decoder.decode(value, { stream: true });
-                const lines = chunk.split('\n').filter((line) => line.trim().startsWith('data: '));
-
-                for (const line of lines) {
-                  const jsonStr = line.replace(/^data:\s*/, '');
-                  if (jsonStr === '[DONE]') continue;
-
-                  try {
-                    const parsed = JSON.parse(jsonStr);
-                    const textToken = parsed.candidates?.[0]?.content?.parts?.[0]?.text || '';
-                    if (textToken) {
-                      fullAnswer += textToken;
-                      setMessages((prev) =>
-                        prev.map((msg) => (msg.id === aiMsgId ? { ...msg, text: fullAnswer } : msg))
-                      );
-                    }
-                  } catch {
-                    // Safely skip split stream packets
-                  }
-                }
-              }
-
-              if (fullAnswer.trim().length > 0) {
-                apiSuccess = true;
-                break;
-              }
-            }
-
-            // Fallback: non-streaming direct generation
-            const directController = new AbortController();
-            const directTimeout = setTimeout(() => directController.abort(), 3500);
-
-            const directRes = await fetch(
-              `https://generativelanguage.googleapis.com/v1beta/models/${candidateModel}:generateContent`,
-              {
-                method: 'POST',
-                signal: directController.signal,
-                headers: {
-                  'Content-Type': 'application/json',
-                  'x-goog-api-key': directApiKey
-                },
-                body: JSON.stringify({
-                  contents: [
-                    {
-                      role: 'user',
-                      parts: [{ text: `${systemInstruction}\n\nUser Question: ${queryText}` }]
-                    }
-                  ]
-                })
-              }
-            );
-
-            clearTimeout(directTimeout);
-
-            if (directRes.ok) {
-              const data = await directRes.json();
-              const ansText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-              if (ansText) {
-                fullAnswer = ansText;
-                setMessages((prev) =>
-                  prev.map((msg) => (msg.id === aiMsgId ? { ...msg, text: fullAnswer } : msg))
-                );
-                apiSuccess = true;
-                break;
-              }
-            }
-          } catch (fetchErr) {
-            console.warn(`Model ${candidateModel} attempt skipped:`, fetchErr.message);
-          }
-        }
+      if (aiResult.isLive && aiResult.answer) {
+        fullAnswer = aiResult.answer;
+        setMessages((prev) =>
+          prev.map((msg) => (msg.id === aiMsgId ? { ...msg, text: fullAnswer } : msg))
+        );
+        apiSuccess = true;
       }
 
       // 4. Seamless In-Silico Scientific Engine Fallback (Zero errors shown to user)
@@ -794,10 +661,14 @@ Format all mathematical equations with LaTeX ($...$) and chemical formulas clear
                     {userRole} Mode
                   </span>
                 </div>
-                <div style={{ fontSize: '10px', color: '#059669', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ fontSize: '10px', color: '#059669', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
                   <span>🔒 {cryptoStatus}</span>
                   <span style={{ color: '#94a3b8' }}>•</span>
                   <span>{currentLab?.name || 'Workspace'}</span>
+                  <span style={{ color: '#94a3b8' }}>•</span>
+                  <span style={{ color: isProxyConfigured() ? '#059669' : '#d97706', fontSize: '9px', fontWeight: '700' }}>
+                    {isProxyConfigured() ? '🌐 Live Worker Proxy' : '🛡️ In-Silico Fallback'}
+                  </span>
                 </div>
               </div>
             </div>
@@ -914,6 +785,27 @@ Format all mathematical equations with LaTeX ($...$) and chemical formulas clear
               gap: '12px'
             }}
           >
+            {!isProxyConfigured() && (
+              <div
+                style={{
+                  background: '#fffbeb',
+                  border: '1px solid #fde68a',
+                  borderRadius: '10px',
+                  padding: '10px 14px',
+                  fontSize: '11px',
+                  color: '#92400e',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  lineHeight: '1.4'
+                }}
+              >
+                <span style={{ fontSize: '14px', flexShrink: 0 }}>🛡️</span>
+                <span>
+                  <strong>Autonomous In-Silico Fallback Engine Active:</strong> Secure proxy endpoint (<code style={{ background: '#fef3c7', padding: '1px 4px', borderRadius: '4px' }}>VITE_GEMINI_PROXY_URL</code>) is not yet configured. Running client-side verified offline wet-lab protocols.
+                </span>
+              </div>
+            )}
             {isAggregating && (
               <div
                 style={{

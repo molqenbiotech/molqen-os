@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>MOLQEN OS — Redirecting...</title>
+    <script type="text/javascript">
+      // Single Page Application redirect script for GitHub Pages & custom domains
+      // Preserves deep routes and parameters by redirecting to index.html with query tokens
+      var pathSegmentsToKeep = 1; // 1 for https://molqenbiotech.github.io/molqen-os/
+      var isCustomDomain = window.location.hostname.indexOf('github.io') === -1 && window.location.hostname !== 'localhost';
+      if (isCustomDomain) {
+        pathSegmentsToKeep = 0; // 0 for custom domain https://molqen.eu.org/
+      }
+
+      var l = window.location;
+      var repoSegment = pathSegmentsToKeep > 0 ? '/' + l.pathname.slice(1).split('/')[0] : '';
+      var targetPath = l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/');
+
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        repoSegment + '/?' +
+        (targetPath ? 'p=' + encodeURIComponent(targetPath) + '&' : '') +
+        (l.search ? 'q=' + encodeURIComponent(l.search.slice(1)) + '&' : '') +
+        l.hash
+      );
+    </script>
+  </head>
+  <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #091e1b; color: #6ee7b7;">
+    <div style="text-align: center;">
+      <div style="font-size: 32px; margin-bottom: 8px;">🧬</div>
+      <h2 style="font-size: 16px; margin: 0 0 6px 0; color: #ffffff;">MOLQEN OS</h2>
+      <p style="font-size: 12px; color: #94a3b8; margin: 0;">Restoring verified laboratory route...</p>
+    </div>
+  </body>
+</html>

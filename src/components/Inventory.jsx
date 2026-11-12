@@ -13,6 +13,7 @@ import {
 } from 'firebase/firestore';
 import { QRCodeSVG } from 'qrcode.react';
 import ReagentScanner from './ReagentScanner';
+import ReagentImporterModal from './ReagentImporterModal';
 import { playTactileClick, playSuccessChime } from '../utils/audioFeedback';
 import { showToast } from '../utils/toast';
 
@@ -31,6 +32,7 @@ export default function Inventory({ currentOrg, user }) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showScanner, setShowScanner] = useState(false);
+  const [showImporter, setShowImporter] = useState(false);
   const [selectedQRReagent, setSelectedQRReagent] = useState(null);
 
   useEffect(() => {
@@ -151,6 +153,26 @@ export default function Inventory({ currentOrg, user }) {
               background: '#ffffff'
             }}
           />
+          <button
+            type="button"
+            onClick={() => setShowImporter(true)}
+            style={{
+              background: '#eff6ff',
+              color: '#1d4ed8',
+              border: '1px solid #bfdbfe',
+              borderRadius: '8px',
+              padding: '8px 14px',
+              fontSize: '12px',
+              fontWeight: '700',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+            title="Bulk import reagents from Excel (.xlsx) or CSV"
+          >
+            📊 Import Excel / CSV
+          </button>
           <button
             type="button"
             onClick={() => setShowScanner(true)}
@@ -564,6 +586,13 @@ export default function Inventory({ currentOrg, user }) {
           </div>
         </div>
       )}
+
+      {/* 1-Click CSV / Excel Bulk Reagent Importer Modal */}
+      <ReagentImporterModal
+        isOpen={showImporter}
+        onClose={() => setShowImporter(false)}
+        currentOrg={currentOrg}
+      />
     </div>
   );
 }
